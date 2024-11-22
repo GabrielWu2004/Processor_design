@@ -8,6 +8,7 @@ support any depth by means of the MEM_SIZE constant.
 
 Change R.Willenberg - Oct 2012: Also produces a *.mem file for ModelSim simulation purposes
 Change F.Martin del Campo - Nov 2015: Added cstring library and changed b and e variables to size_t. This version works with the cywin included with altera 15.0
+Change P.Poolad updated with new instruction codes for nop/stop and vector instrucitons, debuged db instruction
 */
 
 #include <iostream>
@@ -22,7 +23,7 @@ Change F.Martin del Campo - Nov 2015: Added cstring library and changed b and e 
 using namespace std;
 
 #define MEM_SIZE 256
-#define NUM_KEYWORDS 16
+#define NUM_KEYWORDS 19
 
 typedef struct instruction
 {
@@ -36,7 +37,7 @@ bool isKeyword(string str)
 {
 	string keywords[NUM_KEYWORDS] = {"load", "store", "add", "sub", "nand", "ori",
 						  "shift", "shiftl", "shiftr", "bz", "bnz", "bpz",
-					 "org", "db", "stop", "nop"};
+					 "org", "db", "stop", "nop", "vload", "vstore", "vadd"};
 
 	for (int i = 0; i < NUM_KEYWORDS; i++)
 	{
@@ -111,7 +112,7 @@ bool extractOperands (string ops, int& op1, int& op2, bool load_store = false)
 	{
 		string sop1 = ops.substr(0,comma_pos);
 		string sop2 = ops.substr(comma_pos+1);
-		if (sop1 != "k0" && sop1 != "k1" && sop1 != "k2" && sop1 != "k3")
+		if (sop1 != "k0" && sop1 != "k1" && sop1 != "k2" && sop1 != "k3" && sop1 != "v0" && sop1 != "v1" && sop1 != "v2" && sop1 != "v3")
 			return false;
 		if (load_store)
 		{
@@ -122,7 +123,7 @@ bool extractOperands (string ops, int& op1, int& op2, bool load_store = false)
 		}
 		else
 		{
-			if (sop2 != "k0" && sop2 != "k1" && sop2 != "k2" && sop2 != "k3")
+			if (sop2 != "k0" && sop2 != "k1" && sop2 != "k2" && sop2 != "k3" && sop2 != "v0" && sop2 != "v1" && sop2 != "v2" && sop2 != "v3")
 				return false;
 			else
 				op2 = sop2[1] - '0';
@@ -382,7 +383,7 @@ int main(int argc, char* argv[])
 				else
 				{
 					c_encoding = (char) processNumber(col3);
-					if (encoding < -128 || encoding > 127)
+					if (c_encoding < -128 || c_encoding > 127)
 					{
 						cerr << "Error: line " << line_count << ", invalid argument to 'db'." << endl;
 						exit(1);
@@ -399,6 +400,15 @@ int main(int argc, char* argv[])
 				encoding = op1 << 6;
 				encoding += op2 << 4;
 			}
+			else if (col2 == "vload")
+			{
+				if (!extractOperands(col3, op1, op2, true))
+					throw "parse error";
+				encoding = 0;
+				encoding = op1 << 6;
+				encoding += op2 << 4;
+				encoding |= 0xA;
+			}
 			else if (col2 == "store")
 			{
 				if (!extractOperands(col3, op1, op2, true))
@@ -409,6 +419,15 @@ int main(int argc, char* argv[])
 				encoding += op2 << 4;
 				encoding |= 2;
 			}
+			else if (col2 == "vstore")
+			{
+				if (!extractOperands(col3, op1, op2, true))
+					throw "parse error";
+				encoding = 0;
+				encoding = op1 << 6;
+				encoding += op2 << 4;
+				encoding |= 0xC;
+			}
 			else if (col2 == "add")
 			{
 				if (!extractOperands(col3, op1, op2))
@@ -418,6 +437,15 @@ int main(int argc, char* argv[])
 				encoding = op1 << 6;
 				encoding += op2 << 4;
 				encoding |= 4;
+			}
+			else if (col2 == "vadd")
+			{
+				if (!extractOperands(col3, op1, op2))
+					throw "parse error";
+				encoding = 0;
+				encoding = op1 << 6;
+				encoding += op2 << 4;
+				encoding |= 0xE;
 			}
 			else if (col2 == "sub")
 			{
@@ -518,13 +546,14 @@ int main(int argc, char* argv[])
 					encoding |= 13;
 			}
 			else if (col2 == "stop")
-			  {
-			    encoding = 1;
-			  }
+			{
+			    encoding = 0x01;
+			}
 			else if (col2 == "nop")
 			  {
-			    encoding = 10;
+			    encoding = 0x81;
 			  }
+
 			
 			mem[cur_address] = (char) encoding;
 		}
