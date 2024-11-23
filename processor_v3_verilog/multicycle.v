@@ -45,9 +45,12 @@ wire	[7:0] R2wire, PCwire, R1wire, RFout1wire, RFout2wire;
 wire	[7:0] ALU1wire, ALU2wire, ALUwire, ALUOut, MDRwire, MEMwire;
 wire	[7:0] IR, SE4wire, ZE5wire, ZE3wire, AddrWire, RegWire;
 wire	[7:0] reg0, reg1, reg2, reg3;
+wire	[7:0] disp0, disp1, disp2, disp3;
 wire	[7:0] constant;
 wire	[2:0] ALUOp, ALU2;
 wire	[1:0] R1_in;
+wire	[15:0] counter;
+wire	[7:0] counter_upper, counter_lower;
 wire	Nwire, Zwire;
 reg		N, Z;
 
@@ -57,8 +60,12 @@ assign	reset =  ~KEY[0]; // KEY is active high
 
 
 // ------------------- DE2 compatible HEX display ------------------- //
+
+assign counter_upper = counter[15:8];
+assign counter_lower = counter[7:0];
+
 HEXs	HEX_display(
-	.in0(reg0),.in1(reg1),.in2(reg2),.in3(reg3),.selH(SW[0]),
+	.in0(IR),.in1(IR),.in2(counter_upper),.in3(counter_lower),.selH(SW[2]),
 	.out0(HEX0),.out1(HEX1),.out2(HEX2),.out3(HEX3),
 	.out4(HEX4),.out5(HEX5)
 );
@@ -85,7 +92,7 @@ FSM		Control(
 	.PCwrite(PCWrite),.AddrSel(AddrSel),.MemRead(MemRead),.MemWrite(MemWrite),
 	.IRload(IRLoad),.R1Sel(R1Sel),.MDRload(MDRLoad),.R1R2Load(R1R2Load),
 	.ALU1(ALU1),.ALUOutWrite(ALUOutWrite),.RFWrite(RFWrite),.RegIn(RegIn),
-	.FlagWrite(FlagWrite),.ALU2(ALU2),.ALUop(ALUOp)
+	.FlagWrite(FlagWrite),.ALU2(ALU2),.ALUop(ALUOp), .counter(counter)
 );
 
 memory	DataMem(

@@ -45,3 +45,4 @@ add wave -position 5  sim:/multicycle_tb/DUT/RF_block/k0
 add wave -position 6  sim:/multicycle_tb/DUT/RF_block/k1
 add wave -position 7  sim:/multicycle_tb/DUT/RF_block/k2
 add wave -position 8  sim:/multicycle_tb/DUT/RF_block/k3
+add wave -position 9  sim:/multicycle_tb/DUT/Control/counter
