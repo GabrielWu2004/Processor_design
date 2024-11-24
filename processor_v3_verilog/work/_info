@@ -9,7 +9,7 @@ z2
 cModel Technology
 d/home/gabrielwu2004/Desktop/ECE352_Project/processor_v3_verilog
 vALU
-Z0 !s110 1732302127
+Z0 !s110 1732468306
 !i10b 1
 !s100 iaU79UW^_[P^VJamSBHEO3
 I@1hcEM6<h^UC1_XiP>;en0
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1732302127.000000
+Z4 !s108 1732468306.000000
 !s107 ALU.v|
 !s90 -reportprogress|300|-vlog01compat|-work|work|ALU.v|
 !i113 1
@@ -99,11 +99,11 @@ n@dual@mem
 vFSM
 R0
 !i10b 1
-!s100 jEVm2gLLi=b^O6VVS4OPH2
-IS@BdjgF2]k]jVNP9T;Y:g1
+!s100 QY_^PmCAdG^d^19DALm6A2
+IGZgEDH;C6;HdzI4`Vj>lm0
 R1
 R2
-w1732295334
+w1732468020
 8FSM.v
 FFSM.v
 Z14 L0 20
@@ -186,11 +186,11 @@ R6
 vmulticycle
 R0
 !i10b 1
-!s100 f3`BY@842:VCGTEEK7_T]1
-IR_Z?>?mFjWhWFSJdNE]A32
+!s100 h`C?2QZk@5BH_D7IQWe[D0
+IjfE7AT[jgS4eCo:OCzL_62
 R1
 R2
-w1732302125
+w1732396109
 8multicycle.v
 Fmulticycle.v
 L0 27
@@ -205,7 +205,7 @@ R4
 R5
 R6
 vmulticycle_tb
-R0
+!s110 1732468307
 !i10b 1
 !s100 25CdB6AhFW5gJA]1OB]<@1
 I669g@6TXETjo5>P^z?dbG0
@@ -288,6 +288,27 @@ R4
 !i113 1
 R5
 R6
+vregister_32bit
+R0
+!i10b 1
+!s100 ^ineh^Z4REF6Ygo>jz3d;2
+I=bOeFcIlfgQziSG6i?2C^2
+R1
+R2
+w1732393532
+8register_32bit.v
+Fregister_32bit.v
+L0 4
+R3
+r1
+!s85 0
+31
+R4
+!s107 register_32bit.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|register_32bit.v|
+!i113 1
+R5
+R6
 vregister_8bit
 R0
 !i10b 1
@@ -295,7 +316,7 @@ R0
 I4Z6VF0:m8PTHQB]Nc1Lo12
 R1
 R2
-w1351025856
+w1732393522
 8register_8bit.v
 Fregister_8bit.v
 L0 4
@@ -316,17 +337,17 @@ R0
 I2boASg[[NTkXfC_MVk?AC2
 R1
 R2
-w1181103058
-8RF.v
-FRF.v
+Z16 w1732392380
+Z17 8RF.v
+Z18 FRF.v
 L0 26
 R3
 r1
 !s85 0
 31
 R4
-!s107 RF.v|
-!s90 -reportprogress|300|-vlog01compat|-work|work|RF.v|
+Z19 !s107 RF.v|
+Z20 !s90 -reportprogress|300|-vlog01compat|-work|work|RF.v|
 !i113 1
 R5
 R6
@@ -338,32 +359,32 @@ R0
 IzN:X:12YNbB[Ch:aa`I;O1
 R1
 R2
-Z16 w1181104138
-Z17 8extend.v
-Z18 Fextend.v
+Z21 w1181104138
+Z22 8extend.v
+Z23 Fextend.v
 L0 38
 R3
 r1
 !s85 0
 31
 R4
-Z19 !s107 extend.v|
-Z20 !s90 -reportprogress|300|-vlog01compat|-work|work|extend.v|
+Z24 !s107 extend.v|
+Z25 !s90 -reportprogress|300|-vlog01compat|-work|work|extend.v|
 !i113 1
 R5
 R6
 ns@extend
-vzExtend
+vVRF
 R0
 !i10b 1
-!s100 bJVaS13jhmVTOk>Of=dAZ1
-ICV6P5n`2cBac_a_`O3@9T0
+!s100 Po8XhMn??e7<07<gY4ASd1
+IJU1a1@G9[C8f]Q=73>la[0
 R1
 R2
 R16
 R17
 R18
-R10
+L0 95
 R3
 r1
 !s85 0
@@ -371,6 +392,28 @@ r1
 R4
 R19
 R20
+!i113 1
+R5
+R6
+n@v@r@f
+vzExtend
+R0
+!i10b 1
+!s100 bJVaS13jhmVTOk>Of=dAZ1
+ICV6P5n`2cBac_a_`O3@9T0
+R1
+R2
+R21
+R22
+R23
+R10
+R3
+r1
+!s85 0
+31
+R4
+R24
+R25
 !i113 1
 R5
 R6
