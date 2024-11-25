@@ -9,7 +9,7 @@ z2
 cModel Technology
 d/home/gabrielwu2004/Desktop/ECE352_Project/processor_v3_verilog
 vALU
-Z0 !s110 1732468306
+Z0 !s110 1732505568
 !i10b 1
 !s100 iaU79UW^_[P^VJamSBHEO3
 I@1hcEM6<h^UC1_XiP>;en0
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1732468306.000000
+Z4 !s108 1732505568.000000
 !s107 ALU.v|
 !s90 -reportprogress|300|-vlog01compat|-work|work|ALU.v|
 !i113 1
@@ -99,11 +99,11 @@ n@dual@mem
 vFSM
 R0
 !i10b 1
-!s100 QY_^PmCAdG^d^19DALm6A2
-IGZgEDH;C6;HdzI4`Vj>lm0
+!s100 PA3kA:N;S52<X<X]n>cZR3
+I^Oo:`F7:jeo<M6Q_AoCkB0
 R1
 R2
-w1732468020
+w1732490368
 8FSM.v
 FFSM.v
 Z14 L0 20
@@ -186,11 +186,11 @@ R6
 vmulticycle
 R0
 !i10b 1
-!s100 h`C?2QZk@5BH_D7IQWe[D0
-IjfE7AT[jgS4eCo:OCzL_62
+!s100 Z9e=3YQl@S>A;>oUL?KKT2
+I7NJG=bMRch_cmihEV8D=82
 R1
 R2
-w1732396109
+w1732504724
 8multicycle.v
 Fmulticycle.v
 L0 27
@@ -205,7 +205,7 @@ R4
 R5
 R6
 vmulticycle_tb
-!s110 1732468307
+R0
 !i10b 1
 !s100 25CdB6AhFW5gJA]1OB]<@1
 I669g@6TXETjo5>P^z?dbG0

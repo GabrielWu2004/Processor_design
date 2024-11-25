@@ -45,6 +45,7 @@ wire 	VRFWrite, X1X2Load, VoutSel, T0Load, T1Load, T2Load, T3Load;
 wire	[31:0] VRFout1wire, VRFout2wire, VDataInWire;
 wire	[31:0] vreg0, vreg1, vreg2, vreg3, X1Wire, X2Wire;
 wire	[7:0] R2wire, PCwire, R1wire, RFout1wire, RFout2wire;
+wire	[7:0] R2InWire, R2AddOutWire;
 wire	[7:0] ALU1wire, ALU2wire, ALUwire, ALUOut, MDRwire, MEMwire;
 wire	[7:0] IR, SE4wire, ZE5wire, ZE3wire, AddrWire, RegWire;
 wire	[7:0] reg0, reg1, reg2, reg3;
@@ -60,6 +61,8 @@ wire	[1:0] R1_in;
 wire	[15:0] counter;
 wire	[7:0] counter_upper, counter_lower;
 wire	Nwire, Zwire;
+wire 	garbageN0, garbageN1, garbageN2, garbageN3, garbageN4;
+wire	garbageZ0, garbageZ1, garbageZ2, garbageZ3, garbageZ4;
 reg		N, Z;
 
 // ------------------------ Input Assignment ------------------------ //
@@ -117,22 +120,27 @@ ALU		ALU(
 
 ALU		VADDER0(
 	.in1(X1Wire[7:0]), .in2(X2Wire[7:0]), .out(VA0wire),
-	.ALUOp(3'b000), .N(1'bz), .Z(1'bz)
+	.ALUOp(constant[3:1]), .N(garbageN0), .Z(garbageZ0)
 );
 
 ALU		VADDER1(
 	.in1(X1Wire[15:8]), .in2(X2Wire[15:8]), .out(VA1wire),
-	.ALUOp(3'b000), .N(1'bz), .Z(1'bz)
+	.ALUOp(constant[3:1]), .N(garbageN1), .Z(garbageZ1)
 );
 
 ALU		VADDER2(
 	.in1(X1Wire[23:16]), .in2(X2Wire[23:16]), .out(VA2wire),
-	.ALUOp(3'b000), .N(1'bz), .Z(1'bz)
+	.ALUOp(constant[3:1]), .N(garbageN2), .Z(garbageZ2)
 );
 
 ALU		VADDER3(
 	.in1(X1Wire[31:24]), .in2(X2Wire[31:24]), .out(VA3wire),
-	.ALUOp(3'b000), .N(1'bz), .Z(1'bz)
+	.ALUOp(constant[3:1]), .N(garbageN3), .Z(garbageZ3)
+);
+
+ALU		R2ADDER(
+	.in1(R2wire), .in2(constant), .out(R2AddOutWire),
+	.ALUOp(constant[3:1]), .N(garbageN4), .Z(garbageZ4)
 );
 
 RF		RF_block(
@@ -149,7 +157,7 @@ VRF		VRF_block(
 	.vr0(vreg0), .vr1(vreg1), .vr2(vreg2), .vr3(vreg3)
 );
 
-assign VDataInWire = {VDataInWire0, VDataInWire1, VDataInWire2, VDataInWire3};
+assign VDataInWire = {VDataInWire3, VDataInWire2, VDataInWire1, VDataInWire0};
 
 register_32bit X1(
 	.clock(clock), .aclr(reset), .enable(X1X2Load),
@@ -203,7 +211,7 @@ register_8bit	R1(
 
 register_8bit	R2(
 	.clock(clock),.aclr(reset),.enable(R1R2Load),
-	.data(RFout2wire),.q(R2wire)
+	.data(R2InWire),.q(R2wire)
 );
 
 register_8bit	ALUOut_reg(
@@ -214,6 +222,11 @@ register_8bit	ALUOut_reg(
 mux2to1_2bit		R1Sel_mux(
 	.data0x(IR[7:6]),.data1x(constant[1:0]),
 	.sel(R1Sel),.result(R1_in)
+);
+
+mux2to1_8bit		R2Sel_mux(
+	.data0x(RFout2wire), .data1x(R2AddOutWire),
+	.sel(R2Sel), .result(R2InWire)
 );
 
 mux2to1_8bit 		AddrSel_mux(
@@ -231,23 +244,23 @@ mux2to1_8bit 		ALU1_mux(
 	.sel(ALU1),.result(ALU1wire)
 );
 
-mux2to1_8bit 		VMux0(
-	.data0x(VA0wire), .data1x(MEMWire),
+mux2to1_8bit 		T0_mux(
+	.data0x(VA0wire), .data1x(MEMwire),
 	.sel(VoutSel), .result(VMux0wire)
 );
 
-mux2to1_8bit 		VMux1(
-	.data0x(VA1wire), .data1x(MEMWire),
+mux2to1_8bit 		T1_mux(
+	.data0x(VA1wire), .data1x(MEMwire),
 	.sel(VoutSel), .result(VMux1wire)
 );
 
-mux2to1_8bit 		VMux2(
-	.data0x(VA2wire), .data1x(MEMWire),
+mux2to1_8bit 		T2_mux(
+	.data0x(VA2wire), .data1x(MEMwire),
 	.sel(VoutSel), .result(VMux2wire)
 );
 
-mux2to1_8bit 		VMux3(
-	.data0x(VA3wire), .data1x(MEMWire),
+mux2to1_8bit 		T3_mux(
+	.data0x(VA3wire), .data1x(MEMwire),
 	.sel(VoutSel), .result(VMux3wire)
 );
 

@@ -2,6 +2,29 @@ onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -noupdate /multicycle_tb/reset
 add wave -noupdate /multicycle_tb/clock
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/DataMem/address
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/DataMem/data
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/DataMem/q
+add wave sim:/multicycle_tb/DUT/DataMem/MemRead
+add wave sim:/multicycle_tb/DUT/DataMem/wren
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/PC/data
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/IR_reg/data
+add wave -radix unsigned sim:/multicycle_tb/DUT/Control/state
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/RF_block/k0
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/RF_block/k1
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/RF_block/k2
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/RF_block/k3
+add wave -radix decimal sim:/multicycle_tb/DUT/Control/counter
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/R2/q
+add wave sim:/multicycle_tb/DUT/R2Sel_mux/sel
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/VRF_block/k0
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/VRF_block/k1
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/VRF_block/k2
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/VRF_block/k3
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/T0/q
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/T1/q
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/T2/q
+add wave -radix hexadecimal sim:/multicycle_tb/DUT/T3/q
 add wave -noupdate -divider {Hex Display}
 add wave -noupdate -radix hexadecimal /multicycle_tb/DUT/HEX_display/in0
 add wave -noupdate -radix hexadecimal /multicycle_tb/DUT/HEX_display/in1
@@ -38,11 +61,6 @@ configure wave -timeline 0
 configure wave -timelineunits ns
 update
 WaveRestoreZoom {0 ps} {2500 ns}
-add wave -position 2  sim:/multicycle_tb/DUT/PC/data
-add wave -position 3  sim:/multicycle_tb/DUT/IR_reg/data
-add wave -position 4  sim:/multicycle_tb/DUT/Control/state
-add wave -position 5  sim:/multicycle_tb/DUT/RF_block/k0
-add wave -position 6  sim:/multicycle_tb/DUT/RF_block/k1
-add wave -position 7  sim:/multicycle_tb/DUT/RF_block/k2
-add wave -position 8  sim:/multicycle_tb/DUT/RF_block/k3
-add wave -position 9  sim:/multicycle_tb/DUT/Control/counter
+add wave -position 21  -radix hexadecimal sim:/multicycle_tb/DUT/T0_mux/data1x
+add wave -position 22  sim:/multicycle_tb/DUT/T0_mux/sel
+add wave -position 23  -radix hexadecimal sim:/multicycle_tb/DUT/T0_mux/result

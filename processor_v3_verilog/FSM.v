@@ -80,7 +80,7 @@ VRFWrite, X1X2Load, VoutSel, T0Load, T1Load, T2Load, T3Load, MemIn
 								else if( instr == 4'b0101 ) state = c3_bz;
 								else if( instr == 4'b1001 ) state = c3_bnz;
 								else if( instr == 4'b0001 ) state = c3_stop;
-								else if( instr == 4'b1010 ) state = c1; // nop
+								// else if( instr == 4'b1010 ) state = c1; // nop
 								else if( instr == 4'b1010 ) state = c3_vload;
 								else if( instr == 4'b1100 ) state = c3_vstore;
 								else if( instr == 4'b1110 ) state = c3_vadd;
